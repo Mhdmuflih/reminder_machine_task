@@ -1,16 +1,17 @@
 package repositories
 
 import (
+	"errors"
 	"reminder/config"
 	"reminder/models"
 )
 
 // ===============================================================================================
+// SaveRule inserts a new rule into the database
 func SaveRule(rule models.ReminderRule) (models.ReminderRule, error) {
 	err := config.DB.Create(&rule).Error
 	return rule, err
 }
-
 
 // ===============================================================================================
 // GetAllRules fetches all reminder rules from DB
@@ -20,96 +21,68 @@ func GetAllRules() ([]models.ReminderRule, error) {
 	return rules, err
 }
 
+// ===============================================================================================
+// Private helper: get rule by ID (reusable)
+func getRuleByID(id uint) (models.ReminderRule, error) {
+	var rule models.ReminderRule
+	if err := config.DB.First(&rule, id).Error; err != nil {
+		return rule, errors.New("ReminderRule not found")
+	}
+	return rule, nil
+}
 
 // ===============================================================================================
 // UpdateRule updates a reminder rule by ID
 func UpdateRule(id uint, updatedData map[string]interface{}) (models.ReminderRule, error) {
-	var rule models.ReminderRule
-
-	// Find the rule first
-	if err := config.DB.First(&rule, id).Error; err != nil {
+	rule, err := getRuleByID(id)
+	if err != nil {
 		return rule, err
 	}
 
-	// Update fields
 	if err := config.DB.Model(&rule).Updates(updatedData).Error; err != nil {
 		return rule, err
 	}
 
-	// Fetch the updated rule
-	if err := config.DB.First(&rule, id).Error; err != nil {
-		return rule, err
-	}
-
-	return rule, nil
+	return getRuleByID(id) // return updated rule
 }
-
-
 
 // ===============================================================================================
 // ActivateRule sets is_active = true for the given rule ID
 func ActivateRule(id uint) (models.ReminderRule, error) {
-	var rule models.ReminderRule
-
-	// Find the rule
-	if err := config.DB.First(&rule, id).Error; err != nil {
+	rule, err := getRuleByID(id)
+	if err != nil {
 		return rule, err
 	}
 
-	// Update is_active to true
 	if err := config.DB.Model(&rule).Update("is_active", true).Error; err != nil {
 		return rule, err
 	}
 
-	// Fetch updated rule
-	if err := config.DB.First(&rule, id).Error; err != nil {
-		return rule, err
-	}
-
-	return rule, nil
+	return getRuleByID(id)
 }
-
-
 
 // ===============================================================================================
 // DeactivateRule sets is_active = false for the given rule ID
 func DeactivateRule(id uint) (models.ReminderRule, error) {
-	var rule models.ReminderRule
-
-	// Find the rule
-	if err := config.DB.First(&rule, id).Error; err != nil {
+	rule, err := getRuleByID(id)
+	if err != nil {
 		return rule, err
 	}
 
-	// Update is_active to false
 	if err := config.DB.Model(&rule).Update("is_active", false).Error; err != nil {
 		return rule, err
 	}
 
-	// Fetch updated rule
-	if err := config.DB.First(&rule, id).Error; err != nil {
-		return rule, err
-	}
-
-	return rule, nil
+	return getRuleByID(id)
 }
-
-
 
 // ===============================================================================================
 // DeleteRule deletes a reminder rule by ID
 func DeleteRule(id uint) error {
-	var rule models.ReminderRule
-
-	// Find the rule
-	if err := config.DB.First(&rule, id).Error; err != nil {
+	_, err := getRuleByID(id)
+	if err != nil {
 		return err
 	}
 
-	// Delete the rule
-	if err := config.DB.Delete(&rule).Error; err != nil {
-		return err
-	}
-
-	return nil
+	return config.DB.Delete(&models.ReminderRule{}, id).Error
 }
