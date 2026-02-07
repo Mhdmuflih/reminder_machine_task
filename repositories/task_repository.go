@@ -5,12 +5,15 @@ import (
 	"reminder/models"
 )
 
+// ===============================================================================================
 // SaveTask inserts a new task into the database
 func SaveTask(task models.Task) (models.Task, error) {
 	err := config.DB.Create(&task).Error
 	return task, err
 }
 
+
+// ===============================================================================================
 // GetAllTasks fetches all tasks from the database
 func GetAllTasks() ([]models.Task, error) {
 	var tasks []models.Task
@@ -18,6 +21,8 @@ func GetAllTasks() ([]models.Task, error) {
 	return tasks, err
 }
 
+
+// ===============================================================================================
 // UpdateTask updates a task by ID
 func UpdateTask(id uint, updatedData map[string]interface{}) (models.Task, error) {
 	var task models.Task
@@ -41,6 +46,7 @@ func UpdateTask(id uint, updatedData map[string]interface{}) (models.Task, error
 }
 
 
+// ===============================================================================================
 // DeleteTask deletes a task by ID
 func DeleteTask(id uint) error {
 	var task models.Task

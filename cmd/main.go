@@ -16,10 +16,6 @@ func main() {
 	// Connect to PostgreSQL DB & migrate tables
 	config.ConnectDB()
 
-	// Seed tasks and reminder rules
-	// seed.SeedTasks()
-	// seed.SeedReminderRules()
-
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // fallback

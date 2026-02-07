@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+
+// ===============================================================================================
 // CreateTaskService creates a new task
 func CreateTaskService(title string, dueAt time.Time, status string) (models.Task, error) {
 	task := models.Task{
@@ -16,12 +18,15 @@ func CreateTaskService(title string, dueAt time.Time, status string) (models.Tas
 	return repositories.SaveTask(task)
 }
 
+
+// ===============================================================================================
 // GetAllTasksService returns all tasks
 func GetAllTasksService() ([]models.Task, error) {
 	return repositories.GetAllTasks()
 }
 
 
+// ===============================================================================================
 // UpdateTaskService updates a task
 func UpdateTaskService(id uint, title string, dueAt time.Time, status string) (models.Task, error) {
 	updatedData := map[string]interface{}{
@@ -34,6 +39,7 @@ func UpdateTaskService(id uint, title string, dueAt time.Time, status string) (m
 }
 
 
+// ===============================================================================================
 // DeleteTaskService calls repository to delete a task
 func DeleteTaskService(id uint) error {
 	return repositories.DeleteTask(id)

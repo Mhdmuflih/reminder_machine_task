@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ===============================================================================================
 func CreateRule(c *gin.Context) {
 	var input struct {
 		Name          string `json:"name"`
@@ -42,6 +43,7 @@ func CreateRule(c *gin.Context) {
 }
 
 
+// ===============================================================================================
 // GetRules handles GET /rules
 func GetRules(c *gin.Context) {
 	rules, err := services.GetAllRulesService()
@@ -54,6 +56,7 @@ func GetRules(c *gin.Context) {
 }
 
 
+// ===============================================================================================
 // UpdateRule handles PUT /rules/:id
 func UpdateRule(c *gin.Context) {
 	// Get ID from URL
@@ -87,6 +90,7 @@ func UpdateRule(c *gin.Context) {
 }
 
 
+// ===============================================================================================
 // ActivateRule handles PATCH /rules/:id/active
 func ActivateRule(c *gin.Context) {
 	// Get ID from URL
@@ -108,6 +112,7 @@ func ActivateRule(c *gin.Context) {
 }
 
 
+// ===============================================================================================
 // DeactivateRule handles PATCH /rules/:id/deactivate
 func DeactivateRule(c *gin.Context) {
 	// Get ID from URL
@@ -129,6 +134,7 @@ func DeactivateRule(c *gin.Context) {
 }
 
 
+// ===============================================================================================
 // DeleteRule handles DELETE /rules/:id
 func DeleteRule(c *gin.Context) {
 	// Get ID from URL

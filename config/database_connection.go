@@ -1,27 +1,3 @@
-// package db
-
-// import (
-// 	"gorm.io/gorm"
-// 	"gorm.io/driver/postgres"
-// 	"os"
-// 	"reminder/models"
-// )
-
-// var DB *gorm.DB
-
-// func Connect() {
-// 	dsn := os.Getenv("DB_URL")
-// 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-// 	if err != nil {
-// 		panic("DB connection failed")
-// 	}
-
-// 	DB = database
-
-// 	// AUTO CREATE TABLE
-// 	DB.AutoMigrate(&models.User{})
-// }
-
 package config
 
 import (

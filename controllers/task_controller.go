@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ===============================================================================================
 // CreateTask handles POST /tasks
 func CreateTask(c *gin.Context) {
 	var input struct {
@@ -41,6 +42,8 @@ func CreateTask(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"task": task})
 }
 
+
+// ===============================================================================================
 // GetTasks handles GET /tasks
 func GetTasks(c *gin.Context) {
 	tasks, err := services.GetAllTasksService()
@@ -53,6 +56,7 @@ func GetTasks(c *gin.Context) {
 }
 
 
+// ===============================================================================================
 // UpdateTask handles PUT /tasks/:id
 func UpdateTask(c *gin.Context) {
 	// Get ID from URL
@@ -93,6 +97,8 @@ func UpdateTask(c *gin.Context) {
 }
 
 
+
+// ===============================================================================================
 // DeleteTask handles DELETE /tasks/:id
 func DeleteTask(c *gin.Context) {
 	// Get ID from URL

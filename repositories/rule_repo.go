@@ -5,12 +5,14 @@ import (
 	"reminder/models"
 )
 
+// ===============================================================================================
 func SaveRule(rule models.ReminderRule) (models.ReminderRule, error) {
 	err := config.DB.Create(&rule).Error
 	return rule, err
 }
 
 
+// ===============================================================================================
 // GetAllRules fetches all reminder rules from DB
 func GetAllRules() ([]models.ReminderRule, error) {
 	var rules []models.ReminderRule
@@ -19,6 +21,7 @@ func GetAllRules() ([]models.ReminderRule, error) {
 }
 
 
+// ===============================================================================================
 // UpdateRule updates a reminder rule by ID
 func UpdateRule(id uint, updatedData map[string]interface{}) (models.ReminderRule, error) {
 	var rule models.ReminderRule
@@ -43,6 +46,7 @@ func UpdateRule(id uint, updatedData map[string]interface{}) (models.ReminderRul
 
 
 
+// ===============================================================================================
 // ActivateRule sets is_active = true for the given rule ID
 func ActivateRule(id uint) (models.ReminderRule, error) {
 	var rule models.ReminderRule
@@ -67,6 +71,7 @@ func ActivateRule(id uint) (models.ReminderRule, error) {
 
 
 
+// ===============================================================================================
 // DeactivateRule sets is_active = false for the given rule ID
 func DeactivateRule(id uint) (models.ReminderRule, error) {
 	var rule models.ReminderRule
@@ -90,6 +95,8 @@ func DeactivateRule(id uint) (models.ReminderRule, error) {
 }
 
 
+
+// ===============================================================================================
 // DeleteRule deletes a reminder rule by ID
 func DeleteRule(id uint) error {
 	var rule models.ReminderRule
