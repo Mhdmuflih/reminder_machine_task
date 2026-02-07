@@ -6,7 +6,7 @@ import (
 	"reminder/config"
 	"reminder/routes"
 	"reminder/scheduler"
-	"reminder/seed"
+	// "reminder/seed"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -18,9 +18,9 @@ func main() {
 	// Connect to PostgreSQL DB & migrate tables
 	config.ConnectDB()
 
-	// Seed sample data
-	seed.SeedTasks()
-	seed.SeedReminderRules()
+	// // Seed sample data
+	// seed.SeedTasks()
+	// seed.SeedReminderRules()
 
 	// ===== Background scheduler start =====
 	scheduler.StartReminderScheduler()
